@@ -4,7 +4,6 @@ var lowerCase = 'abcdefghijklmnopqrstuvwxyz';
 var upperCase = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 var number = '0123456789';
 var specialChars = '!@#$%&/[](){}=+,.?;:^-_*';
-var passPass = ''
 
 // setup way for user to interact
 function maybe() {
@@ -59,9 +58,9 @@ function maybe() {
 }
   // create a function for the math
 function randRan(arr){
-  for (var i =0; i < length; i++) 
-    var rand = Math.floor(Math.random() * confirmArr.length);
-    var randEle = confirmArr[rand];
+  //for (var i =0; i < length; i++) 
+    var rand = Math.floor(Math.random() * arr.length);
+    var randEle = arr[rand];
   
   return randEle;
   //push conditials concatinating randomizing
@@ -71,10 +70,39 @@ function randRan(arr){
 var passMaybe;
 function generatePassword() {
   passMaybe = maybe()
-  if (lowerCase) {
-    var verifiedLower = false;
-    for (i = 0; i < length; i++) {
-      var poissibleLower = randRan(poissibleLower);
+  var megaString = ""
+  if (passMaybe.lower) {
+    megaString += lowerCase
+  }
+  if (passMaybe.upper){
+    megaString += upperCase
+  }
+  if (passMaybe.specChars){
+    megaString += specialChars
+  }
+  if (passMaybe.num) {
+    megaString += number;
+  }
+
+  var verifiedLower = !passMaybe;
+  var verifiedUpper = !passMaybe;
+  var verifiedNumber = !passMaybe;
+  var verifiedSpecialChars = !passMaybe;
+  while(!verifiedLower || !verifiedNumber || !verifiedSpecialChars|| !verifiedUpper){
+ console.log("trying to generate password.")
+  
+  var output = "";
+  for (let i = 0; i < passMaybe.length; i++) {
+    
+    output += randRan(megaString)
+    
+    }
+    //return output 
+  if (passMaybe.lower) {
+    
+    for (i = 0; i < output.length; i++) {
+
+      var possibleLower = output[i];
       if (
         possibleLower == "a" ||
         possibleLower == "b" ||
@@ -106,14 +134,14 @@ function generatePassword() {
         verifiedLower = true;
       }
     }
-    if (verifiedLower === false) {
-      generatePassword();
-    }
+    
   }    
-  if (upperCase) {
-    var verifiedUpper = false;
-    for (i = 0; i < length; i++) {
-      var poissibleUpper = randRan(poissibleUpper);
+  if (passMaybe.upper) {
+    
+
+
+    for (i = 0; i < output.length; i++) {
+      var poissibleUpper = output[i];
       if (
         poissibleUpper == "A" ||
         poissibleUpper == "B" ||
@@ -145,13 +173,12 @@ function generatePassword() {
         verifiedUpper = true;
       }
     }
-    if (verifiedUpper === false) {
-      generatePassword();
-    }
-    if (number) {
-      var verifiedNumber = false;
-      for (i = 0; i < length; i++) {
-        var poissibleNumber = randRan(poissibleNumber);
+    
+    
+    if (passMaybe.num) {
+      
+      for (i = 0; i < output.length; i++) {
+        var poissibleNumber = output[i];
         if (
           poissibleNumber == "0" ||
           poissibleNumber == "1" ||
@@ -167,13 +194,12 @@ function generatePassword() {
           verifiedNumber = true;
         }
       }
-      if (verifiedNumber === false) {
-        generatePassword();
-      }
-      if (specialChars) {
-        var verifiedSpecialChars = false;
-        for (i = 0; i < length; i++) {
-          var poissibleSpecialChars = randRan(poissibleSpecialChars);
+    }  
+      
+      if (passMaybe.specChars) {
+        
+        for (i = 0; i < output.length; i++) {
+          var poissibleSpecialChars = output[i];
           if (
             poissibleSpecialChars == "!" ||
             poissibleSpecialChars == "@" ||
@@ -199,13 +225,13 @@ function generatePassword() {
             verifiedSpecialChars = true;
           }
         }
-        if (verifiedSpecialChars === false) {
-          generatePassword();
-        }
+        
       }
-      return passMaybe;
-    }
+      
+    
   }
+  }
+  return output
 }
 
 /*document.getElementById('generate').addEventListener('click', () => {
